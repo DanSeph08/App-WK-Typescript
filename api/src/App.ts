@@ -3,6 +3,7 @@ import config from '../lib/config';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
+import routes from './Routes/index';
 
 const app: Application = express();
 
@@ -10,6 +11,8 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
+
+app.use('/api', routes);
 
 app.use(cors({
     origin: config.cors,
@@ -29,10 +32,6 @@ app.use((err:error, req: Request, res:Response, next:NextFunction) => {
 	const message = err.message || err;
 	console.log(err);
 	res.status(status).send(message);
-});
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello TypeScript');
 });
 
 export default app;

@@ -1,5 +1,5 @@
-import app from './src/App';
+import server from './src/App'
 
-app.listen(3001, () => {
+server.listen(3001, () => {
     console.log('listening on port 3001');
 });

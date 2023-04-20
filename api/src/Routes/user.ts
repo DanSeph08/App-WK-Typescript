@@ -1,12 +1,8 @@
-import { Response, Request, Router } from 'express';
-const router = Router();
+import { Router } from 'express';
+import { userGetAll } from '../handlers/usersHandlers';
+const userRouter = Router();
 
-router.get('/', (req: Request, res: Response) => {
-    res.status(200).send('Get');
-});
+userRouter.get('/', userGetAll);
 
-router.post('/', (req: Request, res: Response) => {
-    res.status(200).send('Post');
-});
 
-export default router;
+export default userRouter;

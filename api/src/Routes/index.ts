@@ -1,7 +1,7 @@
-import { Router } from "express";
-import userRoutes from './user';
-const router = Router();
+import { Router } from 'express';
+import { userGetAll } from './user';
+const userRouter = Router();
 
-router.use('/user', userRoutes);
+userRouter.get('/users', userGetAll);
 
-export default router;
+export default userRouter;

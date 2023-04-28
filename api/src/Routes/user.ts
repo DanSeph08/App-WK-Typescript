@@ -1,8 +1,12 @@
-import { Router } from 'express';
-import { userGetAll } from '../handlers/usersHandlers';
-const userRouter = Router();
+import { Response, Request } from 'express';
+import { getAllUser } from '../handlers/usersHandlers';
 
-userRouter.get('/', userGetAll);
-
-
-export default userRouter;
+export const userGetAll = async (req: Request, res: Response) => {
+	try {
+		const userList = await getAllUser();
+		if (!userList) throw new Error('No users found');
+		return res.status(200).send(userList);
+	} catch (error) {
+		res.status(404).send({ error });
+	}
+};

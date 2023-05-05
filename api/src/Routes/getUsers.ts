@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { getAllUser } from '../handlers/usersHandlers';
+import { getAllUser } from '../handlers/getUsersHandlers';
 
 export const userGetAll = async (req: Request, res: Response) => {
 	try {

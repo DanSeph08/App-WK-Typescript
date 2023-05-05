@@ -19,18 +19,18 @@ export const getAllUser = async () => {
 			users.push(obj);
 		}
 
-		// const userDb = await User.findAll({
-		//     attributes: ['id', 'name', 'nickname', 'email'],
-		//     include: {
-		//         model: User,
-		//         attributes: ['id', 'name', 'nickname', 'email'],
-		//         through: {
-		//             attributes: []
-		//         }
-		//     }
-		// })
+		const userDb = await User.findAll({
+		    attributes: ['id', 'name', 'nickname'],
+		    include: {
+		        model: User,
+		        attributes: ['name'],
+		        through: {
+		            attributes: []
+		        }
+		    }
+		})
 
-		return [...users];
+		return [...users, ...userDb];
 	} catch (error) {
 		console.error(error);
 	}

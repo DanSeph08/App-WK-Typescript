@@ -1,14 +1,25 @@
-import { Model, Table, Column, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+import { Model, Table, Column, CreatedAt, UpdatedAt, BelongsTo, HasOne, PrimaryKey, AutoIncrement, AllowNull, ForeignKey } from 'sequelize-typescript';
+import { Email } from './Email';
 @Table
 export class User extends Model<User> {
+	@PrimaryKey
+	@AutoIncrement
+	@Column
+	id!: number;
+
+	@AllowNull(true)
+	@ForeignKey(() => User)
+	@Column
+	parentId!: number;
+
+	@BelongsTo(() => User, 'parentId')
+	parent!: User;
+
 	@Column
 	name!: string;
 
 	@Column
 	nickname!: string;
-
-	@Column
-	email!: string;
 
 	@CreatedAt
 	@Column
@@ -18,18 +29,8 @@ export class User extends Model<User> {
 	@Column
 	updatedAt!: Date;
 
-	// User.hasMany(Project, {
-	//   sourceKey: "id",
-	//   foreignKey: "ownerId",
-	//   as: "projects", // ¡esto determina el nombre en `asociaciones`!
-	// });
-
-	// User.belongsToMany(Example, {
-	//  sourceKey: "userId",
-	//  foreignKey: "exampleId",
-	//  as: "Realtions",
-	// });
-
-	// Address.belongsTo(User, { targetKey: "id" });
-	// User.hasOne(Address, { sourceKey: "id" });
+	@HasOne(() => Email)
+	email!: Email;
 }
+
+

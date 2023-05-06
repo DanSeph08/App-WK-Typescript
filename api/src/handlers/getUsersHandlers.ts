@@ -1,26 +1,26 @@
 import axios from 'axios';
 import { User } from '../models/User';
-
+interface dataInfo {
+	id: number;
+	name: string;
+	username: string;
+	email: string;
+}
 export const getAllUser = async () => {
 	try {
-		let users = [];
-		for (let i = 0; i < 10; i++) {
-			const userApi = await axios.get(
-				'https://jsonplaceholder.typicode.com/users',
-			);
-			const info = await userApi.data[i];
-            
-			const obj = {
-                id: info.id,
+		const userApi = await axios.get(
+			'https://jsonplaceholder.typicode.com/users',
+		);
+		  const users = userApi.data.slice(0, 10).map((info: dataInfo) => ({
+				id: info.id,
 				name: info.name,
 				nickname: info.username,
 				email: info.email,
-			};
-			users.push(obj);
-		}
-
-		const userDb = await User.findAll()
-
+			}));
+            
+		const userDb = await User.findAll({
+			attributes: ['id', 'name', 'nickname', 'email'],
+		})
 		return [...users, ...userDb];
 	} catch (error) {
 		console.error(error);

@@ -1,5 +1,5 @@
-import { Model, Table, Column, CreatedAt, UpdatedAt, BelongsTo, HasOne, PrimaryKey, AutoIncrement, AllowNull, ForeignKey } from 'sequelize-typescript';
-import { Email } from './Email';
+import { Model, Table, Column, CreatedAt, UpdatedAt, BelongsTo, PrimaryKey, AutoIncrement, AllowNull, ForeignKey } from 'sequelize-typescript';
+// import { Email } from './Email';
 @Table
 export class User extends Model<User> {
 	@PrimaryKey
@@ -21,6 +21,9 @@ export class User extends Model<User> {
 	@Column
 	nickname!: string;
 
+	@Column
+	email!: string;
+
 	@CreatedAt
 	@Column
 	createdAt!: Date;
@@ -29,8 +32,6 @@ export class User extends Model<User> {
 	@Column
 	updatedAt!: Date;
 
-	@HasOne(() => Email)
-	email!: Email;
 }
 
 

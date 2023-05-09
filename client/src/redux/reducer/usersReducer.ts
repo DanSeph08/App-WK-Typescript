@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     users: [],
+    errorMsg: ''
 };
 
 export const usersReducer = createSlice({
@@ -11,8 +12,12 @@ export const usersReducer = createSlice({
         allUsers: (state, action) => {
             state.users = action.payload;
         },
+        errorMsg: (state, action) => { 
+            state.errorMsg = action.payload;
+        }
+
     },
 });
 
-export const { allUsers } = usersReducer.actions;
-export default usersReducer.reducer;
+export const { allUsers,  errorMsg } = usersReducer.actions;
+export default usersReducer.reducer

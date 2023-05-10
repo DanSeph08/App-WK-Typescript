@@ -1,17 +1,15 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import config from './lib/config';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import morgan from 'morgan';
 import routes from './Routes/index';
-import cors from 'cors';
 
 const app: Application = express();
 app.use(express.urlencoded({ extended: true, limit: '50mb' })); //middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
 app.use(morgan('dev'));
-
-app.use('/api', routes);
 
 app.use(
 	cors({
@@ -22,12 +20,14 @@ app.use(
 	}),
 );
 
-interface error{
-    status: number;
-    message: string;
+app.use('/api', routes)
+
+interface error {
+	status: number;
+	message: string;
 }
 
-app.use((err: error, req: Request, res: Response, next: NextFunction) => {
+app.use((err:error, req: Request, res: Response, next:NextFunction) => {
 	// eslint-disable-line no-unused-vars
 	const status = err.status || 500;
 	const message = err.message || err;
